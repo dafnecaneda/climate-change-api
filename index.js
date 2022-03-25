@@ -7,57 +7,57 @@ const app = express()
 
 const newspapers = [
     {
-        name: 'thetimes',
+        name: 'The Times',
         address: 'https://www.thetimes.co.uk/environment/climate-change',
         base: ''
     },
     {
-        name: 'guardian',
+        name: 'The Guardian',
         address: 'https://www.theguardian.com/environment/climate-crisis',
         base: ''
     },
     {
-        name: 'telegraph',
+        name: 'Telegraph',
         address: 'https://www.telegraph.co.uk/climate-change',
         base: 'https://www.telegraph.co.uk'
     },
     {
-        name: 'nyt',
+        name: 'NY Times',
         address: 'https://www.nytimes.com/section/climate',
         base: 'https://www.nytimes.com'
     },
     {
-        name: 'latimes',
+        name: 'Latimes',
         address: 'https://www.latimes.com/environment',
         base: ''
     },
     {
-        name: 'un',
+        name: 'UN',
         address: 'https://www.un.org/climatechange',
         base: ''
     },
    {
-        name: 'bbc',
+        name: 'BBC',
         address: 'https://www.bbc.com/future',
         base: 'https://www.bbc.com/'
     },
     {
-        name: 'es',
+        name: 'Standard',
         address: 'https://www.standard.co.uk/topic/climate-change',
         base: 'https://www.standard.co.uk'
     },
     {
-        name: 'sun',
+        name: 'The Sun',
         address: 'https://www.thesun.co.uk/topic/climate-change-environment/',
         base: ''
     },
     {
-        name: 'nyp',
+        name: 'NY Post',
         address: 'https://nypost.com/tag/climate-change/',
         base: ''
     },
       {
-        name: 'dm',
+        name: 'Daily Mail',
         address: 'https://www.dailymail.co.uk/news/climate_change_global_warming/index.html',
         base: ''
     }
