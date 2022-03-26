@@ -73,7 +73,7 @@ newspapers.forEach(newspaper => {
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                const img = $(this).children('img').attr('src')
+                const img = $(this).find('img').attr('src')
                 articles.push({
                     title,
                     url: newspaper.base + url,
@@ -107,7 +107,7 @@ app.get('/news/:newspaperId', /*async*/ (req, res) => {
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                const img = $(this).children('img').attr('src')
+                const img = $(this).find('img').attr('src')
                 specificArticles.push({
                     title,
                     url: newspaperBase + url,
