@@ -79,7 +79,7 @@ newspapers.forEach(newspaper => {
                     title,
                     url: newspaper.base + url,
                     source: newspaper.name,
-                    img: img
+                    img: newspaper.name + img
                 })
             })
 
