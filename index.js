@@ -73,7 +73,7 @@ newspapers.forEach(newspaper => {
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                const img = $('img', this).attr('src')
+                const img = $(this, 'img').attr('src')
                 articles.push({
                     title,
                     url: newspaper.base + url,
