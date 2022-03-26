@@ -79,7 +79,7 @@ newspapers.forEach(newspaper => {
                     title,
                     url: newspaper.base + url,
                     source: newspaper.name,
-                    img
+                    img: "https://w7.pngwing.com/pngs/312/792/png-transparent-global-warming-computer-icons-climate-change-others-miscellaneous-leaf-renewable-energy.png"
                 })
             })
 
