@@ -78,7 +78,7 @@ newspapers.forEach(newspaper => {
                     title,
                     url: newspaper.base + url,
                     source: newspaper.name,
-                    img
+                    img:img
                 })
             })
         })
@@ -107,10 +107,12 @@ app.get('/news/:newspaperId', /*async*/ (req, res) => {
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
+                const img = $(this, 'img').attr('src')
                 specificArticles.push({
                     title,
                     url: newspaperBase + url,
-                    source: newspaperId
+                    source: newspaperId,
+                    img: img
                 })
             })
             res.json(specificArticles)
