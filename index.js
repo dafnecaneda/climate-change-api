@@ -73,7 +73,7 @@ newspapers.forEach(newspaper => {
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                const img = $(this, 'img').attr('src')
+                const img = $(this).children('img').attr('src')
                 articles.push({
                     title,
                     url: newspaper.base + url,
@@ -107,16 +107,16 @@ app.get('/news/:newspaperId', /*async*/ (req, res) => {
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                const img = $(this, 'img').attr('src')
+                const img = $(this).children('img').attr('src')
                 specificArticles.push({
                     title,
                     url: newspaperBase + url,
                     source: newspaperId,
                     img: img
-                })
+                }).catch( err => console.log(err))
             })
             res.json(specificArticles)
-    }).catch( err => console.log(err))
+        })
 })
 
 app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
