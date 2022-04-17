@@ -1,69 +1,79 @@
-const PORT = process.env.PORT || 8000 //this is for deploying on heroku
+const PORT = process.env.PORT || 8000
 const express = require('express')
 const axios = require('axios')
 const cheerio = require('cheerio')
-
 const app = express()
 
 const newspapers = [
     {
-        name: 'The Times',
+        name: 'cityam',
+        address: 'https://www.cityam.com/london-must-become-a-world-leader-on-climate-change-action/',
+        base: ''
+    },
+    {
+        name: 'thetimes',
         address: 'https://www.thetimes.co.uk/environment/climate-change',
         base: ''
     },
     {
-        name: 'The Guardian',
+        name: 'guardian',
         address: 'https://www.theguardian.com/environment/climate-crisis',
-        base: ''
+        base: '',
     },
     {
-        name: 'Telegraph',
+        name: 'telegraph',
         address: 'https://www.telegraph.co.uk/climate-change',
-        base: 'https://www.telegraph.co.uk'
+        base: 'https://www.telegraph.co.uk',
     },
     {
-        name: 'NY Times',
-        address: 'https://www.nytimes.com/section/climate',
-        base: 'https://www.nytimes.com'
+        name: 'nyt',
+        address: 'https://www.nytimes.com/international/section/climate',
+        base: '',
     },
     {
-        name: 'Latimes',
+        name: 'latimes',
         address: 'https://www.latimes.com/environment',
-        base: ''
+        base: '',
     },
     {
-        name: 'UN',
+        name: 'smh',
+        address: 'https://www.smh.com.au/environment/climate-change',
+        base: 'https://www.smh.com.au',
+    },
+    {
+        name: 'un',
         address: 'https://www.un.org/climatechange',
-        base: ''
-    },
-   {
-        name: 'BBC',
-        address: 'https://www.bbc.com/future',
-        base: 'https://www.bbc.com/'
+        base: '',
     },
     {
-        name: 'Standard',
+        name: 'bbc',
+        address: 'https://www.bbc.co.uk/news/science_and_environment',
+        base: 'https://www.bbc.co.uk',
+    },
+    {
+        name: 'es',
         address: 'https://www.standard.co.uk/topic/climate-change',
         base: 'https://www.standard.co.uk'
     },
     {
-        name: 'The Sun',
+        name: 'sun',
         address: 'https://www.thesun.co.uk/topic/climate-change-environment/',
         base: ''
     },
     {
-        name: 'NY Post',
-        address: 'https://nypost.com/tag/climate-change/',
+        name: 'dm',
+        address: 'https://www.dailymail.co.uk/news/climate_change_global_warming/index.html',
         base: ''
     },
-      {
-        name: 'Daily Mail',
-        address: 'https://www.dailymail.co.uk/news/climate_change_global_warming/index.html',
+    {
+        name: 'nyp',
+        address: 'https://nypost.com/tag/climate-change/',
         base: ''
     }
 ]
 
 const articles = []
+
 newspapers.forEach(newspaper => {
     axios.get(newspaper.address)
         .then(response => {
@@ -73,50 +83,50 @@ newspapers.forEach(newspaper => {
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                const img = $(this).find('img').attr('src')
+
                 articles.push({
                     title,
                     url: newspaper.base + url,
-                    source: newspaper.name,
-                    img: img
+                    source: newspaper.name
                 })
             })
+
         })
 })
 
 app.get('/', (req, res) => {
-    res.json('Climate Change News API')
+    res.json('Welcome to my Climate Change News API')
 })
 
 app.get('/news', (req, res) => {
-   res.json(articles)
+    res.json(articles)
 })
 
-app.get('/news/:newspaperId', /*async*/ (req, res) => {
+app.get('/news/:newspaperId', (req, res) => {
     const newspaperId = req.params.newspaperId
 
     const newspaperAddress = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].address
     const newspaperBase = newspapers.filter(newspaper => newspaper.name == newspaperId)[0].base
+
 
     axios.get(newspaperAddress)
         .then(response => {
             const html = response.data
             const $ = cheerio.load(html)
             const specificArticles = []
-            
+
             $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
-                const img = $(this).find('img').attr('src')
                 specificArticles.push({
                     title,
                     url: newspaperBase + url,
-                    source: newspaperId,
-                    img: img
-                }).catch( err => console.log(err))
+                    source: newspaperId
+                })
             })
             res.json(specificArticles)
-        })
+        }).catch(console.log(error))
+        
 })
 
-app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
+app.listen(PORT, () => console.log(`server running on PORT ${PORT}`))
